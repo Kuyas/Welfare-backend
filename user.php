@@ -12,9 +12,9 @@
             $this->db = new DbConnect();
         }
         
-        public function isLoginExist($username, $password){
+        public function isLoginExist($mobileNumber, $password){
             
-            $query = "select * from ".$this->db_table." where username = '$username' AND password = '$password' Limit 1";
+            $query = "select * from ".$this->db_table." where mobileNumber = '$mobileNumber' AND password = '$password' Limit 1";
             
             $result = mysqli_query($this->db->getDb(), $query);
             
@@ -33,9 +33,32 @@
             
         }
         
-        public function isEmailUsernameExist($username, $email){
+        // public function isEmailmobileNumberExist($mobileNumber, $email){
             
-            $query = "select * from ".$this->db_table." where username = '$username' AND email = '$email'";
+        //     $query = "select * from ".$this->db_table." where mobileNumber = '$mobileNumber' AND email = '$email'";
+            
+        //     $result = mysqli_query($this->db->getDb(), $query);
+            
+        //     if(mysqli_num_rows($result) > 0){
+                
+        //         mysqli_close($this->db->getDb());
+                
+        //         return true;
+                
+        //     }
+            
+            
+        //     return false;
+            
+        // }
+        
+        // public function isValidEmail($email){
+        //     return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+        // }
+
+        public function ismobileNumberExist($mobileNumber){
+            
+            $query = "select * from ".$this->db_table." where mobileNumber = '$mobileNumber'";
             
             $result = mysqli_query($this->db->getDb(), $query);
             
@@ -52,31 +75,28 @@
             
         }
         
-        public function isValidEmail($email){
-            return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
-        }
+      
         
         
-        
-        public function createNewRegisterUser($username, $password, $email){
+        public function createNewRegisterUser($mobileNumber, $password){
             
             
-            $isExisting = $this->isEmailUsernameExist($username, $email);
+            $isExisting = $this->ismobileNumberExist($mobileNumber);
             
             
             if($isExisting){
                 
                 $json['success'] = 0;
-                $json['message'] = "Error in registering. Probably the username/email already exists";
+                $json['message'] = "Error in registering. The Mobile Number already exists";
             }
             
             else{
                 
-            $isValid = $this->isValidEmail($email);
+            // $isValid = $this->isValidEmail($email);
                 
-                if($isValid)
+                if(true)
                 {
-                $query = "insert into ".$this->db_table." (username, password, email, created_at, updated_at) values ('$username', '$password', '$email', NOW(), NOW())";
+                $query = "insert into ".$this->db_table." (mobileNumber, password, created_at, updated_at) values ('$mobileNumber', '$password', NOW(), NOW())";
                 
                 $inserted = mysqli_query($this->db->getDb(), $query);
                 
@@ -88,18 +108,18 @@
                 }else{
                     
                     $json['success'] = 0;
-                    $json['message'] = "Error in registering. Probably the username/email already exists";
+                    $json['message'] = "Error in registering. Please try again";
                     
                 }
                 
                 mysqli_close($this->db->getDb());
                 }
-                else{
-                    $json['success'] = 0;
-                    $json['message'] = "Error in registering. Email Address is not valid";
+                // else{
+                //     $json['success'] = 0;
+                //     $json['message'] = "Error in registering. Email Address is not valid";
 
                 
-                }
+                // }
                 
             }
             
@@ -107,11 +127,11 @@
             
         }
         
-        public function loginUsers($username, $password){
+        public function loginUsers($mobileNumber, $password){
             
             $json = array();
             
-            $canUserLogin = $this->isLoginExist($username, $password);
+            $canUserLogin = $this->isLoginExist($mobileNumber, $password);
             
             if($canUserLogin){
                 

@@ -2,15 +2,15 @@
     
     require_once 'user.php';
     
-    $username = "";
+    $mobileNumber = "";
     
     $password = "";
     
-    $email = "";
+    // $email = "";
     
     if(isset($_POST['username'])){
         
-        $username = $_POST['username'];
+        $mobileNumber = $_POST['username'];
         
     }
     
@@ -20,23 +20,33 @@
         
     }
     
-    if(isset($_POST['email'])){
+    // if(isset($_POST['email'])){
         
-        $email = $_POST['email'];
+    //     $email = $_POST['email'];
         
-    }
+    // }
     
     
     
     $userObject = new User();
-    
-    // Registration
-    
-    if(!empty($username) && !empty($password) && !empty($email)){
+
+
+    if(!empty($mobileNumber) && !empty($password)){
         
         $hashed_password = md5($password);
         
-        $json_registration = $userObject->createNewRegisterUser($username, $hashed_password, $email);
+        $json_array = $userObject->loginUsers($mobileNumber, $hashed_password);
+        
+        echo json_encode($json_array);
+    }
+    
+    // Registration
+    
+    if(!empty($mobileNumber) && !empty($password)){
+        
+        $hashed_password = md5($password);
+        
+        $json_registration = $userObject->createNewRegisterUser($mobileNumber, $hashed_password);
         
         echo json_encode($json_registration);
         
@@ -44,11 +54,11 @@
     
     // Login
     
-    if(!empty($username) && !empty($password) && empty($email)){
+    if(!empty($mobileNumber) && !empty($password)){
         
         $hashed_password = md5($password);
         
-        $json_array = $userObject->loginUsers($username, $hashed_password);
+        $json_array = $userObject->loginUsers($mobileNumber, $hashed_password);
         
         echo json_encode($json_array);
     }
