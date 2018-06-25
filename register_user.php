@@ -3,8 +3,8 @@
 require_once __DIR__ . '/db_config.php';
 
 /**
- * Following code will create a new row
- * All product details are read from HTTP Post Request
+ * Following code will create a new row - for registering a user
+ * 
  */
 
  //array for JSON response
@@ -21,7 +21,7 @@ require_once __DIR__ . '/db_config.php';
     //connecting to db
      $database = DB_DATABASE;
      $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
-     $query = "INSERT INTO users(mobile_number, password, created_at, updated_at) VALUES ('$mobile_number','$password', NOW(), NOW())";
+     $query = "INSERT INTO user(user_mobile, user_password, user_date_created, user_date_modified) VALUES ('$mobile_number','$password', NOW(), NOW())";
      $result = mysqli_query($con, $query);
 
      //check if row is inserted or not
