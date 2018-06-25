@@ -11,7 +11,7 @@ require_once __DIR__. '/db_config.php';
 $response = array();
 
 // check for the required fields
-if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['personal_dob']) && isset($_POST['personal_gender'])
+if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['personal_dob']) &&  isset($_POST['personal_gender'])
 	 && isset($_POST['personal_address']) && isset($_POST['personal_place']) && isset($_POST['personal_district'])) {
 
 	$user_id = $_POST['user_id'];
@@ -36,9 +36,12 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 	$personal_place = mysqli_real_escape_string($con, $personal_place);
 	$personal_district = mysqli_real_escape_string($con, $personal_district);
 
+
+	
 	$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT)
-			VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
-	$result = mysqli_qeury($con, $query);
+	VALUES ('$user_id', '$personal_name', NOW(), '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
+	$result = mysqli_query($con, $query);
+
 	
 
 	// check if row inserted or not
@@ -51,6 +54,7 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 	} else {
 		// failed to insert row into Personal database
 		$response["success"] = 0;
+		$response["1"] = $personal_address;
 
 		echo json_encode($response);
 	}		
