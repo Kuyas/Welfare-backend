@@ -22,7 +22,7 @@ require_once __DIR__ . '/db_config.php';
    //connecting to db
     $database = DB_DATABASE;
     $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
-    $query = "SELECT `mobile_number`, `password` FROM `users` WHERE `mobile_number` = '.$mobile_number.' AND `password` = '.$password.'";
+    $query = "SELECT `user_mobile`, `user_password` FROM `user` WHERE `user_mobile` = '.$mobile_number.' AND `user_password` = '.$password.'";
     
     $result = mysqli_query($con, $query);
   
