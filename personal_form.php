@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__. '/db_config.php'
+require_once __DIR__. '/db_config.php';
 
 /*
 * the app will send id of the user
@@ -14,13 +14,13 @@ $response = array();
 if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['personal_dob']) && isset($_POST['personal_gender'])
 	 && isset($_POST['personal_address']) && isset($_POST['personal_place']) && isset($_POST['personal_district'])) {
 
-	$user_id = $POST['user_id'];
-	$peronal_name = $POST['personal_name'];
-	$peronal_dob = $POST['personal_dob'];
-	$peronal_gender = $POST['personal_gender'];
-	$peronal_address = $POST['personal_address'];
-	$peronal_place = $POST['personal_place'];
-	$peronal_district = $POST['personal_district'];
+	$user_id = $_POST['user_id'];
+	$personal_name = $_POST['personal_name'];
+	$personal_dob = $_POST['personal_dob'];
+	$personal_gender = $_POST['personal_gender'];
+	$personal_address = $_POST['personal_address'];
+	$personal_place = $_POST['personal_place'];
+	$personal_district = $_POST['personal_district'];
 
 
 
@@ -37,7 +37,7 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 	$personal_district = mysqli_real_escape_string($con, $personal_district);
 
 	$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT)
-			VALUES ('$user_id', 'personal_name', 'personal_dob', 'personal_gender', 'personal_address', 'personal_place', personal_district)";
+			VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
 	$result = mysqli_qeury($con, $query);
 	
 
