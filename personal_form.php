@@ -16,11 +16,12 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 
 	$user_id = $_POST['user_id'];
 	$personal_name = $_POST['personal_name'];
-	$peronal_dob = $_POST['personal_dob'];
+	$personal_dob = $_POST['personal_dob'];
 	$personal_gender = $_POST['personal_gender'];
 	$personal_address = $_POST['personal_address'];
 	$personal_place = $_POST['personal_place'];
 	$personal_district = $_POST['personal_district'];
+
 
 
 
@@ -36,10 +37,12 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 	$personal_place = mysqli_real_escape_string($con, $personal_place);
 	$personal_district = mysqli_real_escape_string($con, $personal_district);
 
+	$personal_dob = strtotime('$personal_dob');
+	$personal_dob = date('Y-m-d',$personal_dob);
 
 	
 	$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT)
-			VALUES ('$user_id', '$personal_name', NOW(), '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
+			VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
 	$result = mysqli_query($con, $query);
 	
 
