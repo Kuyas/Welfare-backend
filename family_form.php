@@ -11,10 +11,9 @@ require_once __DIR__. '/db_config.php';
 $response = array();
 
 // check for the required fields
-if (isset($_POST['family_id']) && isset($_POST['user_id']) && isset($_POST['family_name']) && isset($_POST['family_age'])
+if (isset($_POST['user_id']) && isset($_POST['family_name']) && isset($_POST['family_age'])
  && isset($_POST['family_gender']) && isset($_POST['family_occupation']) && isset($_POST['family_relationship'])) {
 
-	$family_id = $_POST['family_id'];
 	$user_id = $_POST['user_id'];
 	$family_name = $_POST['family_name'];
 	$family_age = $_POST['family_age'];
@@ -26,7 +25,6 @@ if (isset($_POST['family_id']) && isset($_POST['user_id']) && isset($_POST['fami
 	$database = DB_DATABASE;
 	$con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 
-	$family_id = mysqli_real_escape_string($con, $family_id);
 	$user_id = mysqli_real_escape_string($con, $user_id);
 	$family_name = mysqli_real_escape_string($con, $family_name);
 	$family_age = mysqli_real_escape_string($con, $family_age);
@@ -34,8 +32,8 @@ if (isset($_POST['family_id']) && isset($_POST['user_id']) && isset($_POST['fami
 	$family_occupation = mysqli_real_escape_string($con, $family_occupation);
 	$family_relationship = mysqli_real_escape_string($con, $family_relationship);
 
-	$query = "INSERT INTO FAMILY (FAMILY_ID, USER_ID, FAMILY_NAME, FAMILY_AGE, FAMILY_GENDER, FAMILY_OCCUPATION, FAMILY_RELATIONSHIP) 
-	VALUES ('$family_id', '$user_id', '$family_name', '$family_age', '$family_gender', '$family_occupation', '$family_relationship')";
+	$query = "INSERT INTO FAMILY (USER_ID, FAMILY_NAME, FAMILY_AGE, FAMILY_GENDER, FAMILY_OCCUPATION, FAMILY_RELATIONSHIP) 
+	VALUES ('$user_id', '$family_name', '$family_age', '$family_gender', '$family_occupation', '$family_relationship')";
 
 	$result = mysqli_qeury($con, $query);
 
