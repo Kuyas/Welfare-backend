@@ -35,7 +35,7 @@ if (isset($_POST['user_id']) && isset($_POST['family_name']) && isset($_POST['fa
 	$query = "INSERT INTO FAMILY (USER_ID, FAMILY_NAME, FAMILY_AGE, FAMILY_GENDER, FAMILY_OCCUPATION, FAMILY_RELATIONSHIP) 
 	VALUES ('$user_id', '$family_name', '$family_age', '$family_gender', '$family_occupation', '$family_relationship')";
 
-	$result = mysqli_qeury($con, $query);
+	$result = mysqli_query($con, $query);
 
 	// check if row inserted or not
 
