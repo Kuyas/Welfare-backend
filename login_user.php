@@ -35,7 +35,7 @@ require_once __DIR__ . '/db_config.php';
     if($result){
         //Login Successfully
         $result = mysqli_fetch_array($result);
-        $response["success"] = 1;
+        $response["response_code"] = 1;
         $response["id"] = $result[0];
        
         echo json_encode($response);
@@ -43,7 +43,7 @@ require_once __DIR__ . '/db_config.php';
 
         //Login Failed
         // $response["result"] = $result;
-        $response["success"] = 0;
+        $response["response_code"] = 0;
         // $response["message"] = $mobile_number;
         // $response["messag1"] = $password;
         echo json_encode($response);
@@ -51,7 +51,7 @@ require_once __DIR__ . '/db_config.php';
 
  }else{
      //No Values Sent
-     $response["success"] = -1;
+     $response["response_code"] = -1;
      echo json_encode($response);
 
  }

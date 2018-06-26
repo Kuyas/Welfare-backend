@@ -52,19 +52,19 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 
 	if ($result) {
 		// successfully inserted into Personal database
-		$response["success"] = 1;
+		$response["response_code"] = 1;
 
 		echo json_encode($response);
 	} else {
 		// failed to insert row into Personal database
-		$response["success"] = 0;
+		$response["response_code"] = 0;
 		$response["1"] = $personal_dob;
 
 		echo json_encode($response);
 	}		
 } else {
 	// required fields are missing
-	$response["success"] = -1;
+	$response["response_code"] = -1;
 
 	echo json_encode($response);
 }

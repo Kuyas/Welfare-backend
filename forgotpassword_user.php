@@ -28,18 +28,18 @@ require_once __DIR__ . '/db_config.php';
 
     if($result){
         //Login Successfully
-        $response["success"] = 1;
+        $response["response_code"] = 1;
         echo json_encode($response);
     }else{
 
         //Login Failed
-        $response["success"] = 0;
+        $response["response_code"] = 0;
         echo json_encode($response);
     }
 
  }else{
      //No Values Sent
-     $response["success"] = -1;
+     $response["response_code"] = -1;
      echo json_encode($response);
 
  }

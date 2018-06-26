@@ -27,20 +27,20 @@ require_once __DIR__ . '/db_config.php';
      //check if row is inserted or not
      if($result){
          //successfully inserted into db
-         $response["success"] = 1;
+         $response["response_code"] = 1;
 
          //echoing json response
          echo json_encode($response);
      }else{
          //failed to insert row
-         $response["success"] = 0;
+         $response["response_code"] = 0;
 
          //echoing json response
          echo json_encode($response);
      }
     }else{
          //required fields missing
-         $response["success"] = -1;
+         $response["response_code"] = -1;
 
          //echoing json response
          echo json_encode($response);
