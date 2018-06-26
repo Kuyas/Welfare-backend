@@ -19,10 +19,6 @@ require_once __DIR__ . '/db_config.php';
 
     $mobile_number = stripslashes($mobile_number);
     $password = stripslashes($password);
- 
-
-
-
 
    //connecting to db
     $database = DB_DATABASE;
@@ -30,11 +26,13 @@ require_once __DIR__ . '/db_config.php';
     $mobile_number = mysqli_real_escape_string($con, $mobile_number);
     $password = mysqli_real_escape_string($con, $password);
     
-    $query = "SELECT * FROM user WHERE user_mobile = '". $mobile_number ."' AND user_password = '". $password."'" ;
+    $query = "SELECT * FROM USER WHERE user_mobile = '". $mobile_number ."' AND user_password = '". $password."'";
+    $response["query"] = $query;
     $result = mysqli_query($con, $query);
+    $response["result"] = $result;
   
-
-    if(mysqli_num_rows($result) > 0){
+    // $result is a boolean value
+    if($result){
         //Login Successfully
         $result = mysqli_fetch_array($result);
         $response["success"] = 1;
