@@ -24,6 +24,7 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 
 
 
+
 	// connecting to database
 	$database = DB_DATABASE;
 	$con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
@@ -36,10 +37,13 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 	$personal_place = mysqli_real_escape_string($con, $personal_place);
 	$personal_district = mysqli_real_escape_string($con, $personal_district);
 
+	$personal_dob = strtotime($personal_dob);
+	$personal_dob = date('Y-m-d',$personal_dob);
+
 
 	
 	$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT)
-	VALUES ('$user_id', '$personal_name', NOW(), '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
+	VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
 	$result = mysqli_query($con, $query);
 
 	
@@ -54,7 +58,7 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 	} else {
 		// failed to insert row into Personal database
 		$response["success"] = 0;
-		$response["1"] = $personal_address;
+		$response["1"] = $personal_dob;
 
 		echo json_encode($response);
 	}		
