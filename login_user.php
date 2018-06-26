@@ -27,7 +27,10 @@ require_once __DIR__ . '/db_config.php';
     $password = mysqli_real_escape_string($con, $password);
     
     $query = "SELECT * FROM USER WHERE user_mobile = '". $mobile_number ."' AND user_password = '". $password."'";
+<<<<<<< HEAD
+=======
     $response["query"] = $query;
+>>>>>>> d77b19f5f0729a80a298d2dd2f30db46d3d309a0
     $result = mysqli_query($con, $query);
     $response["result"] = $result;
   
