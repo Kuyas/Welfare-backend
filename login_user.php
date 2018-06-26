@@ -28,40 +28,37 @@ require_once __DIR__ . '/db_config.php';
         $password = stripslashes($password);
     
 
-
-
         //connecting to db
         $database = DB_DATABASE;
         $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
         $mobile_number = mysqli_real_escape_string($con, $mobile_number);
         $password = mysqli_real_escape_string($con, $password);
         
-        $query = "SELECT * FROM user WHERE user_mobile = '". $mobile_number ."' AND user_password = '". $password."'" ;
+        
+        $query = "SELECT * FROM USER WHERE user_mobile = '". $mobile_number ."' AND user_password = '". $password."'";
+
         $result = mysqli_query($con, $query);
     
-
-        if(mysqli_num_rows($result) > 0){
+        // $result is a boolean value
+        if($result){
             //Login Successfully
             $result = mysqli_fetch_array($result);
-            $response["success"] = 1;
+            $response["response_code"] = 1;
             $response["id"] = $result[0];
         
             echo json_encode($response);
         }else{
 
-            //Login Failed
-            // $response["result"] = $result;
-            $response["success"] = 0;
-            // $response["message"] = $mobile_number;
-            // $response["messag1"] = $password;
-            echo json_encode($response);
+        //Login Failed
+        // $response["result"] = $result;
+        $response["response_code"] = 0;
+        echo json_encode($response);
         }
 
     }
-}
- else{
+} else{
      //No Values Sent
-     $response["success"] = -1;
+     $response["response_code"] = -1;
      echo json_encode($response);
 
  }
