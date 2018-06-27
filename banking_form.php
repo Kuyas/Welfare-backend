@@ -63,7 +63,7 @@ require_once __DIR__ . '/db_config.php';
       
 
         if($result){
-            //Login Successfully
+            // successfully inserted into Payment database
             $result = mysqli_fetch_array($result);
             $response["response_code"] = 1;
             $response["id"] = $result[0];

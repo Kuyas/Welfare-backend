@@ -50,14 +50,14 @@ if (isset($_POST['user_id']) && isset($_POST['payment_reg_fee']) && isset($_POST
 
         // check if row inserted or not
         if ($result) {
-            // successfully inserted into Personal database
+            // successfully inserted into Payment database
             $result = mysqli_fetch_array($result);
             $response["response_code"] = 1;
             $response["id"] = $result[0];
 
             echo json_encode($response);
         } else {
-            // failed to insert row into Personal database
+            // failed to insert row into Payment database
             $response["response_code"] = 0;
 
             echo json_encode($response);

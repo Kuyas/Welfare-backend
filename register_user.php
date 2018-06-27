@@ -41,8 +41,10 @@ require_once __DIR__ . '/db_config.php';
 
         //check if row is inserted or not
         if($result){
-            //successfully inserted into db
+            //successfully registered
+            $result = mysqli_fetch_array($result);
             $response["response_code"] = 1;
+            $response["id"] = $result[0];
 
             //echoing json response
             echo json_encode($response);

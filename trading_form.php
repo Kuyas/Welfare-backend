@@ -92,7 +92,7 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
 	
         // check if row inserted or not
         if ($result) {
-            // successfully inserted into Personal database
+            // successfully inserted into Trading database
             $result = mysqli_fetch_array($result);
             $response["response_code"] = 1;
             $response["id"] = $result[0];

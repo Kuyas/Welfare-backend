@@ -63,7 +63,7 @@ if (isset($_POST['user_id']) && isset($_POST['family_name']) && isset($_POST['fa
 		// check if row inserted or not
 
 		if ($result) {
-			// successfully inserted into Personal database
+			// successfully inserted into Family database
 			$result = mysqli_fetch_array($result);
             $response["response_code"] = 1;
             $response["id"] = $result[0];
