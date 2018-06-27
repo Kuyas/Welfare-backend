@@ -67,6 +67,10 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         $official_name = stripslashes($official_name);
 
 
+        // connecting to database
+        $database = DB_DATABASE;
+        $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
+
         $user_id = mysqli_real_escape_string($con, $user_id);
         $firm_name = mysqli_real_escape_string($con, $firm_name);
         $firm_address = mysqli_real_escape_string($con, $firm_address);
@@ -81,11 +85,6 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         $license_auth = mysqli_real_escape_string($con, $license_auth);
         $official_name = mysqli_real_escape_string($con, $official_name);
 
-        // connecting to database
-        $database = DB_DATABASE;
-        $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
-
-
         $query = "INSERT INTO TRADING (USER_ID, TRADING_FIRM_NAME, TRADING_FIRM_ADDRESS, TRADING_MTP_BRANCH, TRADING_MTP_GODOWN, TRADING_MTP_FACTORY, TRADING_MTP_OTHERS, TRADING_OWNERSHIP_TYPE, TRADING_CAPITAL_CONTRIBUTION, TRADING_GSTN_DATE, TRADING_LICENSE_NUM, TRADING_LICENSE_AUTHORITY, TRADING_OFFICIAL_NAME) 
         VALUES ('$user_id', '$firm_name', '$firm_address', '$mtp_branch', '$mtp_godown', '$mtp_factory', '$mtp_others', '$ownership_type', '$capital_contribution', '$gstn_date', '$license_num', '$license_auth', '$official_name')";    
 
@@ -94,7 +93,9 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         // check if row inserted or not
         if ($result) {
             // successfully inserted into Personal database
+            $result = mysqli_fetch_array($result);
             $response["response_code"] = 1;
+            $response["id"] = $result[0];
 
             echo json_encode($response);
         } else {

@@ -12,39 +12,55 @@ require_once __DIR__ . '/db_config.php';
 
  //check for required fields
  if(isset($_POST['mobile_number']) && isset($_POST['password'])){
-     $mobile_number = $_POST['mobile_number'];
-     $password = $_POST['password'];
-     $password = md5($password);
+
+    if () {
+
+        // input does not match the corresponding given data types
+        $response["success"] = -2;
+        echo json_encode($response);
+    } else {
+
+        $mobile_number = $_POST['mobile_number'];
+        $password = $_POST['password'];
+        $password = md5($password);
+
+        $mobile_number = stripslashes($mobile_number);
+        $password = stripslashes($password);
 
 
+        //connecting to db
+        $database = DB_DATABASE;
+        $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 
-    //connecting to db
-     $database = DB_DATABASE;
-     $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
-     $query = "INSERT INTO user(user_mobile, user_password, user_date_created, user_date_modified) VALUES ('$mobile_number','$password', NOW(), NOW())";
-     $result = mysqli_query($con, $query);
+        $mobile_number = mysqli_real_escape_string($con, $mobile_number);
+        $password = mysqli_real_escape_string($con, $password);
+        
+        $query = "INSERT INTO user(user_mobile, user_password, user_date_created, user_date_modified) VALUES ('$mobile_number','$password', NOW(), NOW())";
+        $result = mysqli_query($con, $query);
 
-     //check if row is inserted or not
-     if($result){
-         //successfully inserted into db
-         $response["response_code"] = 1;
+        //check if row is inserted or not
+        if($result){
+            //successfully inserted into db
+            $response["response_code"] = 1;
 
-         //echoing json response
-         echo json_encode($response);
-     }else{
-         //failed to insert row
-         $response["response_code"] = 0;
+            //echoing json response
+            echo json_encode($response);
+        } else {
+            //failed to insert row
+            $response["response_code"] = 0;
 
-         //echoing json response
-         echo json_encode($response);
-     }
-    }else{
-         //required fields missing
-         $response["response_code"] = -1;
+            //echoing json response
+            echo json_encode($response);
+        }
+    }
 
-         //echoing json response
-         echo json_encode($response);
-     }
+} else {
+    //required fields missing
+    $response["response_code"] = -1;
+
+    //echoing json response
+    echo json_encode($response);
+}
 
 
 ?>

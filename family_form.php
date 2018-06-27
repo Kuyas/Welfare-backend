@@ -44,16 +44,16 @@ if (isset($_POST['user_id']) && isset($_POST['family_name']) && isset($_POST['fa
 		$family_relationship = stripslashes($family_relationship);
 
 
+		// connecting to database
+		$database = DB_DATABASE;
+		$con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
+
 		$user_id = mysqli_real_escape_string($con, $user_id);
 		$family_name = mysqli_real_escape_string($con, $family_name);
 		$family_age = mysqli_real_escape_string($con, $family_age);
 		$family_gender = mysqli_real_escape_string($con, $family_gender);
 		$family_occupation = mysqli_real_escape_string($con, $family_occupation);
 		$family_relationship = mysqli_real_escape_string($con, $family_relationship);
-
-		// connecting to database
-		$database = DB_DATABASE;
-		$con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 
 		$query = "INSERT INTO FAMILY (USER_ID, FAMILY_NAME, FAMILY_AGE, FAMILY_GENDER, FAMILY_OCCUPATION, FAMILY_RELATIONSHIP) 
 		VALUES ('$user_id', '$family_name', '$family_age', '$family_gender', '$family_occupation', '$family_relationship')";
@@ -64,7 +64,9 @@ if (isset($_POST['user_id']) && isset($_POST['family_name']) && isset($_POST['fa
 
 		if ($result) {
 			// successfully inserted into Personal database
-			$response["response_code"] = 1;
+			$result = mysqli_fetch_array($result);
+            $response["response_code"] = 1;
+            $response["id"] = $result[0];
 
 			echo json_encode($response);
 		} else {

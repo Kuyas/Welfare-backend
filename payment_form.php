@@ -34,14 +34,15 @@ if (isset($_POST['user_id']) && isset($_POST['payment_reg_fee']) && isset($_POST
         $payment_annual_fee = stripslashes($payment_annual_fee);
         $payment_class = stripslashes($payment_class);
 
-        $user_id = mysqli_real_escape_string($con, $user_id);
-        $payment_reg_fee = mysqli_real_escape_string($con, $payment_reg_fee);
-        $payment_annual_fee = mysqli_real_escape_string($con, $payment_annual_fee);
-        $payment_class = mysqli_real_escape_string($con, $payment_class);
 
     	// connecting to database
         $database = DB_DATABASE;
         $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
+
+        $user_id = mysqli_real_escape_string($con, $user_id);
+        $payment_reg_fee = mysqli_real_escape_string($con, $payment_reg_fee);
+        $payment_annual_fee = mysqli_real_escape_string($con, $payment_annual_fee);
+        $payment_class = mysqli_real_escape_string($con, $payment_class);
 
         $query = "INSERT INTO PAYMENT (USER_ID, PAYMENT_REG_FEE, PAYMENT_ANNUAL_FEE, PAYMENT_CLASS) VALUES ('$user_id', '$payment_reg_fee', '$payment_annual_fee', '$payment_class')";
 
@@ -50,7 +51,9 @@ if (isset($_POST['user_id']) && isset($_POST['payment_reg_fee']) && isset($_POST
         // check if row inserted or not
         if ($result) {
             // successfully inserted into Personal database
+            $result = mysqli_fetch_array($result);
             $response["response_code"] = 1;
+            $response["id"] = $result[0];
 
             echo json_encode($response);
         } else {
