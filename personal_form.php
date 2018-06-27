@@ -14,13 +14,13 @@ $response = array();
 if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['personal_dob']) &&  isset($_POST['personal_gender'])
 	 && isset($_POST['personal_address']) && isset($_POST['personal_place']) && isset($_POST['personal_district'])) {
 
-	if (!preg_match("^[a-zA-Z]{1,100}$", $_POST['personal_name']) ||  
-		!preg_match("[0-9]{2}\-[0-9]{2}\-[0-9]{4}", $_POST['personal_dob']) ||
+	if (!preg_match("~^[a-zA-Z]{1,100}$~", $_POST['personal_name']) ||  
+		!preg_match("~^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$~", $_POST['personal_dob']) ||
 		(strcmp($_POST['personal_gender'], "MALE") != 0 && strcmp($_POST['personal_gender'], "FEMALE") != 0 && 
 			strcmp($_POST['personal_gender'], "OTHER") != 0) || 
-		!preg_match("[a-zA-Z0-9\-$]{1,200}", $_POST['personal_address']) || 
-		!preg_match("[a-zA-z]{1,100}", $_POST['personal_place']) || 
-		!preg_match("[a-zA-z]{1,100}", $_POST['personal_district'])) {
+		!preg_match("~^[a-zA-Z0-9\-$]{1,200}$~", $_POST['personal_address']) || 
+		!preg_match("~^[a-zA-z]{1,100}$~", $_POST['personal_place']) || 
+		!preg_match("~^[a-zA-z]{1,100}$~", $_POST['personal_district'])) {
 	
 		// input does not match the corresponding given data types
 		$response["response_code"] = -2;

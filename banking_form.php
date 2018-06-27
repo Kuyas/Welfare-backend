@@ -15,12 +15,12 @@ require_once __DIR__ . '/db_config.php';
  if(isset($_POST['user_id']) && isset($_POST['bank_name']) && isset($_POST['bank_account_num']) && isset($_POST['account_holder_name'])
     && isset($_POST['branch_name']) && isset($_POST['bank_ifsc'])){  
 
-    if (!preg_match("^[0-9]$", $_POST['user_id']) ||
-        !preg_match("^[a-zA-Z]{1,100}$", $_POST['bank_name']) ||
-        !preg_match("^[0-9]{11,13}$", $_POST['bank_account_num']) ||
-        !preg_match("^[a-zA-Z]{1,100}$", $_POST['account_holder_name']) ||
-        !preg_match("^[a-zA-Z]{1,100}$", $_POST['branch_name']) ||
-        !preg_match("^[a-zA-Z]{4}[0-9]{7}$", $_POST['bank_ifsc'])) {
+    if (!preg_match("~^[0-9]$~", $_POST['user_id']) ||
+        !preg_match("~^[a-zA-Z]{1,100}$~", $_POST['bank_name']) ||
+        !preg_match("~^[0-9]{11,13}$~", $_POST['bank_account_num']) ||
+        !preg_match("~^[a-zA-Z]{1,100}$~", $_POST['account_holder_name']) ||
+        !preg_match("~^[a-zA-Z]{1,100}$~", $_POST['branch_name']) ||
+        !preg_match("~^[a-zA-Z]{4}[0-9]{7}$~", $_POST['bank_ifsc'])) {
 
         // input does not match the corresponding given data types
         $response["response_code"] = -2;

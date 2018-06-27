@@ -16,19 +16,19 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
      && isset($_POST['trading_license_authority']) && isset($_POST['trading_official_name'])) {
 
 
-    if (!preg_match("^[0-9]$", $_POST['user_id']) ||
-        !preg_match("^[a-zA-z0-9]{1,100}$", $_POST['firm_name']) ||
-        !preg_match("^[a-zA-z0-9]{1,200}$", $_POST['firm_address']) ||
-        !preg_match("^[a-zA-z0-9]{1,100}$", $_POST['mtp_branch']) ||
-        !preg_match("^[a-zA-z0-9]{1,100}$", $_POST['mtp_godown']) ||
-        !preg_match("^[a-zA-z0-9]{1,100}$", $_POST['mtp_factory']) ||
-        !preg_match("^[a-zA-z0-9]{1,100}$", $_POST['mtp_others']) ||
-        !preg_match("^[a-zA-z]{1,100}$", $_POST['ownership_type']) ||
-        !preg_match("^[0-9]{1,20}\.[0-9]{2}$", $_POST['capital_contribution']) ||
-        !preg_match("^[a-zA-z0-9\-]{1,50}$", $_POST['gstn_date']) ||
-        !preg_match("^[a-zA-z0-9\-]{1,50}$", $_POST['license_num']) ||
-        !preg_match("^[a-zA-z0-9\-]{1,50}$", $_POST['license_auth']) ||
-        !preg_match("^[a-zA-z]{1,100}$", $_POST['official_name'])) {
+    if (!preg_match("~^[0-9]$~", $_POST['user_id']) ||
+        !preg_match("~^[a-zA-z0-9]{1,100}$~", $_POST['firm_name']) ||
+        !preg_match("~^[a-zA-z0-9]{1,200}$~", $_POST['firm_address']) ||
+        !preg_match("~^[a-zA-z0-9]{1,100}$~", $_POST['mtp_branch']) ||
+        !preg_match("~^[a-zA-z0-9]{1,100}$~", $_POST['mtp_godown']) ||
+        !preg_match("~^[a-zA-z0-9]{1,100}$~", $_POST['mtp_factory']) ||
+        !preg_match("~^[a-zA-z0-9]{1,100}$~", $_POST['mtp_others']) ||
+        !preg_match("~^[a-zA-z]{1,100}$~", $_POST['ownership_type']) ||
+        !preg_match("~^[0-9]{1,20}\.[0-9]{2}$~", $_POST['capital_contribution']) ||
+        !preg_match("~^[a-zA-z0-9\-]{1,50}$~", $_POST['gstn_date']) ||
+        !preg_match("~^[a-zA-z0-9\-]{1,50}$~", $_POST['license_num']) ||
+        !preg_match("~^[a-zA-z0-9\-]{1,50}$~", $_POST['license_auth']) ||
+        !preg_match("~^[a-zA-z]{1,100}$~", $_POST['official_name'])) {
 
         // input does not match the corresponding given data types
         $response["response_code"] = -2;
