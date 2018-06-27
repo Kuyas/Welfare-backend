@@ -13,7 +13,7 @@ require_once __DIR__ . '/db_config.php';
  //check for required fields
  if(isset($_POST['mobile_number']) && isset($_POST['password'])){
 
-    if (!preg_match("^[0-9]{10}$", $_POST['mobile_number'])
+    if (!preg_match("^[0-9]{10}$", $_POST['mobile_number']) ||
         !preg_match("^[a-zA-Z0-9]{8,16}$", $_POST['password'])) {
 
         // input does not match the corresponding given data types

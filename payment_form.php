@@ -12,9 +12,9 @@ $response = array();
 // check for the required fields
 if (isset($_POST['user_id']) && isset($_POST['payment_reg_fee']) && isset($_POST['payment_annual_fee']) && isset($_POST['payment_class'])) {
 
-    if (!preg_match("^[0-9]$", $_POST['user_id'])
-        !preg_match("^[0-9]{1,20}\.[0-9]{2}$", $_POST['payment_reg_fee'])
-        !preg_match("^[0-9]{1,20}\.[0-9]{2}$", $_POST['payment_annual_fee'])
+    if (!preg_match("^[0-9]$", $_POST['user_id']) ||
+        !preg_match("^[0-9]{1,20}\.[0-9]{2}$", $_POST['payment_reg_fee']) ||
+        !preg_match("^[0-9]{1,20}\.[0-9]{2}$", $_POST['payment_annual_fee']) ||
         !preg_match("^[A-Z]{1,3}$", $_POST['payment_class'])) {
 
         // input does not match the corresponding given data types
