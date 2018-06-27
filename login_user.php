@@ -27,12 +27,12 @@ require_once __DIR__ . '/db_config.php';
         $mobile_number = stripslashes($mobile_number);
         $password = stripslashes($password);
     
+        $mobile_number = mysqli_real_escape_string($con, $mobile_number);
+        $password = mysqli_real_escape_string($con, $password);
 
         //connecting to db
         $database = DB_DATABASE;
         $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
-        $mobile_number = mysqli_real_escape_string($con, $mobile_number);
-        $password = mysqli_real_escape_string($con, $password);
         
         
         $query = "SELECT * FROM USER WHERE user_mobile = '". $mobile_number ."' AND user_password = '". $password."'";

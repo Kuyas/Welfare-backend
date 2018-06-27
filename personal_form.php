@@ -14,37 +14,28 @@ $response = array();
 if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['personal_dob']) &&  isset($_POST['personal_gender'])
 	 && isset($_POST['personal_address']) && isset($_POST['personal_place']) && isset($_POST['personal_district'])) {
 
-	$user_id = $_POST['user_id'];
-	$personal_name = $_POST['personal_name'];
-	$personal_dob = $_POST['personal_dob'];
-	$personal_gender = $_POST['personal_gender'];
-	$personal_address = $_POST['personal_address'];
-	$personal_place = $_POST['personal_place'];
-	$personal_district = $_POST['personal_district'];
-
-
-
-
-	// connecting to database
-	$database = DB_DATABASE;
-	$con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
-
-
-	if (strcmp($personal_gender, "MALE") != 0 && strcmp($personal_gender, "FEMALE") != 0 && strcmp($personal_gender, "OTHER") != 0) {
+	if (!preg_match("^[a-zA-Z]{1,100}$", $_POST['personal_name']) ||  
+		!preg_match("[0-9]{2}\-[0-9]{2}\-[0-9]{4}", $_POST['personal_dob']) ||
+		(strcmp($_POST['personal_gender'], "MALE") != 0 && strcmp($_POST['personal_gender'], "FEMALE") != 0 && 
+			strcmp($_POST['personal_gender'], "OTHER") != 0) || 
+		!preg_match("[a-zA-Z0-9\-$]{1,200}", $_POST['personal_address']) || 
+		!preg_match("[a-zA-z]{1,100}", $_POST['personal_place']) || 
+		!preg_match("[a-zA-z]{1,100}", $_POST['personal_district'])) {
 	
-		// input does not match any of the enum
+		// input does not match the corresponding given data types
 		$response["response_code"] = -2;
 
 		echo json_encode($response); 
 
 	} else { 
 
-		preg_match("^[0-9]$", $user_id);
-		preg_match("^[a-zA-Z]{1,100}$", $personal_name);
-		preg_match("[0-9]{2}\-[0-9]{2}\-[0-9]{4}", $personal_dob);
-		preg_match("[a-zA-Z0-9\-$]{1,200}", $personal_address);
-		preg_match("[a-zA-z]{1,100}", $personal_place);
-		preg_match("[a-zA-z]{1,100}", $personal_district);
+		$user_id = $_POST['user_id'];
+		$personal_name = $_POST['personal_name'];
+		$personal_dob = $_POST['personal_dob'];
+		$personal_gender = $_POST['personal_gender'];
+		$personal_address = $_POST['personal_address'];
+		$personal_place = $_POST['personal_place'];
+		$personal_district = $_POST['personal_district'];
 
 		$user_id = stripslashes($user_id);
 		$personal_name = stripslashes($personal_name);
@@ -67,6 +58,9 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 		$personal_dob = date('Y-m-d',$personal_dob);
 
 
+		// connecting to database
+		$database = DB_DATABASE;
+		$con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 		
 		$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT)
 		VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
