@@ -31,7 +31,7 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         !preg_match("~^[a-zA-z]{1,100}$~", $_POST['official_name'])) {
 
         // input does not match the corresponding given data types
-        $response["response_code"] = -2;
+        $response["response_code"] = 401;
 
         echo json_encode($response); 
     } else {
@@ -93,23 +93,18 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         // check if row inserted or not
         if ($result) {
             // successfully inserted into Trading database
-            $result = mysqli_fetch_array($result);
-            $response["response_code"] = 1;
-            $response["id"] = $result[0];
-
+            $response["response_code"] = 200;
             echo json_encode($response);
         } else {
             // failed to insert row into Personal database
-            $response["response_code"] = 0;
-
+            $response["response_code"] = 403;
             echo json_encode($response);
         }	
     }
 
 } else {
     // required fields are missing
-    $response["response_code"] = -1;
-
+    $response["response_code"] = 400;
     echo json_encode($response);
 }
 
