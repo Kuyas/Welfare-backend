@@ -14,13 +14,13 @@ $response = array();
 if (isset($_POST['user_id']) && isset($_POST['family_name']) && isset($_POST['family_age'])
  && isset($_POST['family_gender']) && isset($_POST['family_occupation']) && isset($_POST['family_relationship'])) {
 
- 	if (!preg_match("^[0-9]$", $_POST['user_id']) || 
- 		!preg_match("^[a-zA-z]{1,100}$", $_POST['family_name']) || 
- 		!preg_match("^[0-9]{1,3}$", $_POST['family_age']) || 
+ 	if (!preg_match("~^[0-9]$~", $_POST['user_id']) || 
+ 		!preg_match("~^[a-zA-z]{1,100}$~", $_POST['family_name']) || 
+ 		!preg_match("~^[0-9]{1,3}$~", $_POST['family_age']) || 
 		(strcmp($_POST['family_gender'], "MALE") != 0 && strcmp($_POST['family_gender'], "FEMALE") != 0 && 
 			strcmp($_POST['family_gender'], "OTHER") != 0) || 
-		!preg_match("^[a-zA-z]{1,50}$", $_POST['family_occupation']) || 
-		!preg_match("^a-zA-z]{1,50}$", $_POST['family_relationship'])) {
+		!preg_match("~^[a-zA-z]{1,50}$~", $_POST['family_occupation']) || 
+		!preg_match("~^a-zA-z]{1,50}$~", $_POST['family_relationship'])) {
 
 		// input does not match the corresponding given data types
 		$response["response_code"] = -2;
@@ -63,7 +63,7 @@ if (isset($_POST['user_id']) && isset($_POST['family_name']) && isset($_POST['fa
 		// check if row inserted or not
 
 		if ($result) {
-			// successfully inserted into Personal database
+			// successfully inserted into Family database
 			$result = mysqli_fetch_array($result);
             $response["response_code"] = 1;
             $response["id"] = $result[0];

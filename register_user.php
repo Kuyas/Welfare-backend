@@ -13,10 +13,15 @@ require_once __DIR__ . '/db_config.php';
  //check for required fields
  if(isset($_POST['mobile_number']) && isset($_POST['password'])){
 
+<<<<<<< HEAD
     if (!preg_match("^[0-9]{10}$", $_POST['mobile_number']) || !preg_match("^[a-zA-Z0-9]{8,16}$", $_POST['password'])) {
+=======
+    if (!preg_match("~^[0-9]{10}$~", $_POST['mobile_number']) ||
+        !preg_match("~^[a-zA-Z0-9]{8,16}$~", $_POST['password'])) {
+>>>>>>> 0c78c5219c8cba74cc384d48167c05cc1da0b01c
 
         // input does not match the corresponding given data types
-        $response["success"] = -2;
+        $response["response_code"] = -2;
         echo json_encode($response);
     } else {
 
@@ -40,8 +45,10 @@ require_once __DIR__ . '/db_config.php';
 
         //check if row is inserted or not
         if($result){
-            //successfully inserted into db
+            //successfully registered
+            $result = mysqli_fetch_array($result);
             $response["response_code"] = 1;
+            $response["id"] = $result[0];
 
             //echoing json response
             echo json_encode($response);

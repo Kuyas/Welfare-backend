@@ -14,16 +14,18 @@ $response = array();
 if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['personal_dob']) &&  isset($_POST['personal_gender'])
 	 && isset($_POST['personal_address']) && isset($_POST['personal_place']) && isset($_POST['personal_district'])) {
 
-	if (!preg_match("^[a-zA-Z]{1,100}$", $_POST['personal_name']) ||  
-		!preg_match("[0-9]{2}\-[0-9]{2}\-[0-9]{4}", $_POST['personal_dob']) ||
+	if (!preg_match("~^[a-zA-Z]{1,100}$~", $_POST['personal_name']) ||  
+		!preg_match("~^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$~", $_POST['personal_dob']) ||
 		(strcmp($_POST['personal_gender'], "MALE") != 0 && strcmp($_POST['personal_gender'], "FEMALE") != 0 && 
 			strcmp($_POST['personal_gender'], "OTHER") != 0) || 
-		!preg_match("[a-zA-Z0-9\-$]{1,200}", $_POST['personal_address']) || 
-		!preg_match("[a-zA-z]{1,100}", $_POST['personal_place']) || 
-		!preg_match("[a-zA-z]{1,100}", $_POST['personal_district'])) {
+		!preg_match("~^[a-zA-Z0-9\-$]{1,200}$~", $_POST['personal_address']) || 
+		!preg_match("~^[a-zA-z]{1,100}$~", $_POST['personal_place']) || 
+		!preg_match("~^[a-zA-z]{1,100}$~", $_POST['personal_district'])) {
 	
 		// input does not match the corresponding given data types
 		$response["response_code"] = -2;
+		// $response["id"] = $user_id;
+
 
 		echo json_encode($response); 
 
@@ -71,15 +73,17 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 
 		if ($result) {
 			// successfully inserted into Personal database
-			$result = mysqli_fetch_array($result);
+			// $result = mysqli_fetch_array($result, MYSQLI_ASSOC);
             $response["response_code"] = 1;
-            $response["id"] = $result[0];
+            $response["id"] = $user_id;
 
 			echo json_encode($response);
 		} else {
 			// failed to insert row into Personal database
 			$response["response_code"] = 0;
-			$response["1"] = $personal_dob;
+			$response["id"] = $user_id;
+
+			// $response["1"] = $personal_dob;
 
 			echo json_encode($response);
 		}
@@ -87,6 +91,8 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 } else {
 	// required fields are missing
 	$response["response_code"] = -1;
+	$response["id"] = $user_id;
+
 
 	echo json_encode($response);
 }
