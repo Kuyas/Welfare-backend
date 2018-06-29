@@ -23,9 +23,7 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 		!preg_match("~^[a-zA-z]{1,100}$~", $_POST['personal_district'])) {
 	
 		// input does not match the corresponding given data types
-		$response["response_code"] = -2;
-		// $response["id"] = $user_id;
-
+		$response["response_code"] = 401;
 
 		echo json_encode($response); 
 
@@ -64,36 +62,26 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 		$personal_dob = strtotime($personal_dob);
 		$personal_dob = date('Y-m-d',$personal_dob);
 		
-		$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT)
-		VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
+		$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT) VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
+		$response["query"] = $query;
 		$result = mysqli_query($con, $query);
-		
 
 		// check if row inserted or not
 
 		if ($result) {
+			// TODO: Document previous error regarding $result in msqli_fetch_array($result) which does not take boolean
 			// successfully inserted into Personal database
-			// $result = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            $response["response_code"] = 1;
-            $response["id"] = $user_id;
-
+            $response["response_code"] = 200;
 			echo json_encode($response);
 		} else {
 			// failed to insert row into Personal database
-			$response["response_code"] = 0;
-			$response["id"] = $user_id;
-
-			// $response["1"] = $personal_dob;
-
+			$response["response_code"] = 403;
 			echo json_encode($response);
 		}
 	}			
 } else {
 	// required fields are missing
-	$response["response_code"] = -1;
-	$response["id"] = $user_id;
-
-
+	$response["response_code"] = 400;
 	echo json_encode($response);
 }
 
