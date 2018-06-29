@@ -11,14 +11,9 @@ require_once __DIR__ . '/db_config.php';
  $response = array();
 
  //check for required fields
- if(isset($_POST['mobile_number']) && isset($_POST['password'])){
+ if(isset($_POST['mobile_number'])){
 
-<<<<<<< HEAD
-    if (!preg_match("^[0-9]{10}$", $_POST['mobile_number']) || !preg_match("^[a-zA-Z0-9]{8,16}$", $_POST['password'])) {
-=======
-    if (!preg_match("~^[0-9]{10}$~", $_POST['mobile_number']) ||
-        !preg_match("~^[a-zA-Z0-9]{8,16}$~", $_POST['password'])) {
->>>>>>> 0c78c5219c8cba74cc384d48167c05cc1da0b01c
+    if (!preg_match("~^[0-9]{10}$~", $_POST['mobile_number'])) {
 
         // input does not match the corresponding given data types
         $response["response_code"] = 401;
@@ -26,28 +21,22 @@ require_once __DIR__ . '/db_config.php';
     } else {
 
         $mobile_number = $_POST['mobile_number'];
-        $password = $_POST['password'];
-        $password = md5($password);
 
         $mobile_number = stripslashes($mobile_number);
-        $password = stripslashes($password);
-
 
         //connecting to db
         $database = DB_DATABASE;
         $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 
         $mobile_number = mysqli_real_escape_string($con, $mobile_number);
-        $password = mysqli_real_escape_string($con, $password);
 
-        $query = "INSERT INTO USER(user_mobile, user_password, user_date_created, user_date_modified) VALUES ('$mobile_number','$password', NOW(), NOW())";
+        $query = "SELECT * FROM USER WHERE USER_MOBILE='".$mobile_number."'";
         $result = mysqli_query($con, $query);
 
         //check if row is inserted or not
-        if($result){
+        if (mysqli_num_rows($result) > 0) {
             //successfully registered
             $response["response_code"] = 200;
-            $response["id"] = mysqli_insert_id($con);
 
             //echoing json response
             echo json_encode($response);

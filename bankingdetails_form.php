@@ -32,7 +32,7 @@ require_once __DIR__ . '/db_config.php';
     $branch_name = mysqli_real_escape_string($con, $branch_name);
     $bank_ifsc = mysqli_real_escape_string($con, $bank_ifsc);
 
-    $query = "INSERT INTO BANKING (USER_ID, BANKING_BANK_NAME, BANKING_ACC_NUMBER, BANKING_ACC_HOLDER_NAME, BANKING_BANK_BRANCH, BANKING_IFSC_CODE) VALUES('".$user_id."', '".$bank_name."', '".$bank_account."', '".$account_holder_name."', '".$branch_name."', '".$bank_ifsc."') ON DUPLICATE KEY UPDATE BANKING_BANK_NAME='".$bank_name."', BANKING_ACC_NUMBER='".$bank_account."', BANKING_ACC_HOLDER_NAME='".$bank_account."', BANKING_BANK_BRANCH='".$branch_name."', BANKING_IFSC_CODE='".$bank_ifsc."'";
+    $query = "INSERT INTO BANKING (USER_ID, BANKING_BANK_NAME, BANKING_ACC_NUMBER, BANKING_ACC_HOLDER_NAME, BANKING_BANK_BRANCH, BANKING_IFSC_CODE) VALUES('$user_id', '$bank_name', '$bank_account', '$account_holder_name', '$branch_name', '$bank_ifsc') ON DUPLICATE KEY UPDATE BANKING_BANK_NAME='".$bank_name."', BANKING_ACC_NUMBER='".$bank_account."', BANKING_ACC_HOLDER_NAME='".$bank_account."', BANKING_BANK_BRANCH='".$branch_name."', BANKING_IFSC_CODE='".$bank_ifsc."'";
 
     $result = mysqli_query($con, $query);
   
