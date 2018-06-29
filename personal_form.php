@@ -63,7 +63,6 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 		$personal_dob = date('Y-m-d',$personal_dob);
 		
 		$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT) VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
-		$response["query"] = $query;
 		$result = mysqli_query($con, $query);
 
 		// check if row inserted or not
