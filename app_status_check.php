@@ -16,6 +16,7 @@ require_once __DIR__. '/db_config.php';
 
  // array for json response
 $response = array();
+// $x = array
 
 if(!isset($_POST["user_id"])) {
     $response["response_code"] = 401;
@@ -36,10 +37,26 @@ if(!isset($_POST["user_id"])) {
 
     if($result){
 
-        $row = mysqli_fetch_array($result, MYSQLI_NUM);
-        $response["response_code"] = 200;
-        $response["application_type"] = $row[2];
-        $response["status"] = $row[3];
+        $i = 1;
+
+        $response[0] = array('response_code' => 200);
+        // $row = mysqli_fetch_array($result, MYSQLI_NUM);
+
+        while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+
+            
+            // $response[$i]["application_type"] = $row[2];
+            // $response[$i]["status"] = $row[3];
+            $response[$i] = array('application_type' => $row[2],
+                              'status' => $row[3]);
+
+
+                              $i++;
+        }
+        $response = array_values($response);
+        
+        // $response["application_type"] = $row[2];
+        // $response["status"] = $row[3];
 
 
         echo json_encode($response);
