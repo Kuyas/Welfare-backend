@@ -14,12 +14,12 @@ $response = array();
 if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['personal_dob']) &&  isset($_POST['personal_gender'])
 	 && isset($_POST['personal_address']) && isset($_POST['personal_place']) && isset($_POST['personal_district'])) {
 
-	if (!preg_match("~^[a-zA-Z]{1,100}$~", $_POST['personal_name']) ||  
+	if (!preg_match("~^[a-zA-Z\ ]{1,100}$~", $_POST['personal_name']) ||  
 		!preg_match("~^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$~", $_POST['personal_dob']) ||
 		(strcmp($_POST['personal_gender'], "MALE") != 0 && strcmp($_POST['personal_gender'], "FEMALE") != 0 && 
 			strcmp($_POST['personal_gender'], "OTHER") != 0) || 
-		!preg_match("~^[a-zA-Z0-9\-$]{1,200}$~", $_POST['personal_address']) || 
-		!preg_match("~^[a-zA-z]{1,100}$~", $_POST['personal_place']) || 
+		!preg_match("~^[a-zA-Z0-9\-\ \\\/]{1,200}$~", $_POST['personal_address']) || 
+		!preg_match("~^[a-zA-z\ ]{1,100}$~", $_POST['personal_place']) || 
 		!preg_match("~^[a-zA-z]{1,100}$~", $_POST['personal_district'])) {
 	
 		// input does not match the corresponding given data types
@@ -37,13 +37,13 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 		$personal_place = $_POST['personal_place'];
 		$personal_district = $_POST['personal_district'];
 
-		$user_id = stripslashes($user_id);
-		$personal_name = stripslashes($personal_name);
-		$personal_dob = stripslashes($personal_dob);
-		$personal_gender = stripslashes($personal_gender);
-		$personal_address = stripslashes($personal_address);
-		$personal_place = stripslashes($personal_place);
-		$personal_district = stripslashes($personal_district);
+		// $user_id = stripslashes($user_id);
+		// $personal_name = stripslashes($personal_name);
+		// $personal_dob = stripslashes($personal_dob);
+		// $personal_gender = stripslashes($personal_gender);
+		// $personal_address = stripslashes($personal_address);
+		// $personal_place = stripslashes($personal_place);
+		// $personal_district = stripslashes($personal_district);
 
 
 
@@ -51,13 +51,13 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 		$database = DB_DATABASE;
 		$con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 
-		$user_id = mysqli_real_escape_string($con, $user_id);
-		$personal_name = mysqli_real_escape_string($con, $personal_name);
-		$personal_dob = mysqli_real_escape_string($con, $personal_dob);
-		$personal_gender = mysqli_real_escape_string($con, $personal_gender);
-		$personal_address = mysqli_real_escape_string($con, $personal_address);
-		$personal_place = mysqli_real_escape_string($con, $personal_place);
-		$personal_district = mysqli_real_escape_string($con, $personal_district);
+		// $user_id = mysqli_real_escape_string($con, $user_id);
+		// $personal_name = mysqli_real_escape_string($con, $personal_name);
+		// $personal_dob = mysqli_real_escape_string($con, $personal_dob);
+		// $personal_gender = mysqli_real_escape_string($con, $personal_gender);
+		// $personal_address = mysqli_real_escape_string($con, $personal_address);
+		// $personal_place = mysqli_real_escape_string($con, $personal_place);
+		// $personal_district = mysqli_real_escape_string($con, $personal_district);
 
 		$personal_dob = strtotime($personal_dob);
 		$personal_dob = date('Y-m-d',$personal_dob);

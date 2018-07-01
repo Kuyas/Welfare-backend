@@ -22,13 +22,13 @@ require_once __DIR__ . '/db_config.php';
 
         $mobile_number = $_POST['mobile_number'];
 
-        $mobile_number = stripslashes($mobile_number);
+        // $mobile_number = stripslashes($mobile_number);
 
         //connecting to db
         $database = DB_DATABASE;
         $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 
-        $mobile_number = mysqli_real_escape_string($con, $mobile_number);
+        // $mobile_number = mysqli_real_escape_string($con, $mobile_number);
 
         $query = "SELECT * FROM USER WHERE USER_MOBILE='".$mobile_number."'";
         $result = mysqli_query($con, $query);
