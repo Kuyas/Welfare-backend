@@ -18,7 +18,7 @@ if (isset($_POST['user_id']) && isset($_POST['payment_reg_fee']) && isset($_POST
         !preg_match("~^[A-Z]{1,3}$~", $_POST['payment_class'])) {
 
         // input does not match the corresponding given data types
-        $response["response_code"] = -2;
+        $response["response_code"] = 401;
 
         echo json_encode($response); 
     } else {
@@ -29,20 +29,20 @@ if (isset($_POST['user_id']) && isset($_POST['payment_reg_fee']) && isset($_POST
     	$payment_class = $_POST['payment_class'];
 
 
-        $user_id = stripslashes($user_id);
-        $payment_reg_fee = stripslashes($payment_reg_fee);
-        $payment_annual_fee = stripslashes($payment_annual_fee);
-        $payment_class = stripslashes($payment_class);
+        // $user_id = stripslashes($user_id);
+        // $payment_reg_fee = stripslashes($payment_reg_fee);
+        // $payment_annual_fee = stripslashes($payment_annual_fee);
+        // $payment_class = stripslashes($payment_class);
 
 
     	// connecting to database
         $database = DB_DATABASE;
         $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 
-        $user_id = mysqli_real_escape_string($con, $user_id);
-        $payment_reg_fee = mysqli_real_escape_string($con, $payment_reg_fee);
-        $payment_annual_fee = mysqli_real_escape_string($con, $payment_annual_fee);
-        $payment_class = mysqli_real_escape_string($con, $payment_class);
+        // $user_id = mysqli_real_escape_string($con, $user_id);
+        // $payment_reg_fee = mysqli_real_escape_string($con, $payment_reg_fee);
+        // $payment_annual_fee = mysqli_real_escape_string($con, $payment_annual_fee);
+        // $payment_class = mysqli_real_escape_string($con, $payment_class);
 
         $query = "INSERT INTO PAYMENT (USER_ID, PAYMENT_REG_FEE, PAYMENT_ANNUAL_FEE, PAYMENT_CLASS) VALUES ('$user_id', '$payment_reg_fee', '$payment_annual_fee', '$payment_class')";
 
@@ -52,13 +52,13 @@ if (isset($_POST['user_id']) && isset($_POST['payment_reg_fee']) && isset($_POST
         if ($result) {
             // successfully inserted into Payment database
             $result = mysqli_fetch_array($result);
-            $response["response_code"] = 1;
+            $response["response_code"] = 200;
             $response["id"] = $result[0];
 
             echo json_encode($response);
         } else {
             // failed to insert row into Payment database
-            $response["response_code"] = 0;
+            $response["response_code"] = 403;
 
             echo json_encode($response);
         }
@@ -67,7 +67,7 @@ if (isset($_POST['user_id']) && isset($_POST['payment_reg_fee']) && isset($_POST
 
 } else {
     // required fields are missing
-    $response["response_code"] = -1;
+    $response["response_code"] = 400;
 
     echo json_encode($response);
 }
