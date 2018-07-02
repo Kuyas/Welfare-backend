@@ -17,7 +17,7 @@ require_once __DIR__ . '/db_config.php';
 
     if (!preg_match("~^[0-9]$~", $_POST['user_id']) ||
         !preg_match("~^[a-zA-Z\ ]{1,100}$~", $_POST['bank_name']) ||
-        !preg_match("~^[0-9]{11,13}$~", $_POST['bank_account_num']) ||
+        !preg_match("~^[0-9]{9,13}$~", $_POST['bank_account_num']) ||
         !preg_match("~^[a-zA-Z\ ]{1,100}$~", $_POST['account_holder_name']) ||
         !preg_match("~^[a-zA-Z\ ]{1,100}$~", $_POST['branch_name']) ||
         !preg_match("~^[a-zA-Z]{4}[0-9]{7}$~", $_POST['bank_ifsc'])) {
@@ -57,16 +57,20 @@ require_once __DIR__ . '/db_config.php';
         // $bank_ifsc = mysqli_real_escape_string($con, $bank_ifsc);
 
 
-        $query = "INSERT INTO BANKING (USER_ID, BANKING_BANK_NAME, BANKING_ACC_NUMBER, BANKING_ACC_HOLDER_NAME, BANKING_BANK_BRANCH, BANKING_IFSC_CODE) VALUES('".$user_id."', '".$bank_name."', '".$bank_account_num."', '".$account_holder_name."', '".$branch_name."', '".$bank_ifsc."') ON DUPLICATE KEY UPDATE BANKING_BANK_NAME='".$bank_name."', BANKING_ACC_NUMBER='".$bank_account_num."', BANKING_ACC_HOLDER_NAME='".$bank_account."', BANKING_BANK_BRANCH='".$branch_name."', BANKING_IFSC_CODE='".$bank_ifsc."'";
+        $query = "INSERT INTO BANKING (USER_ID, BANKING_BANK_NAME, BANKING_ACC_NUMBER, BANKING_ACC_HOLDER_NAME, 
+        BANKING_BANK_BRANCH, BANKING_IFSC_CODE) VALUES('".$user_id."', '".$bank_name."', '".$bank_account_num."',
+         '".$account_holder_name."', '".$branch_name."', '".$bank_ifsc."') ON DUPLICATE KEY 
+         UPDATE BANKING_BANK_NAME='".$bank_name."', BANKING_ACC_NUMBER='".$bank_account_num."', 
+         BANKING_ACC_HOLDER_NAME='".$account_holder_name."', BANKING_BANK_BRANCH='".$branch_name."', BANKING_IFSC_CODE='".$bank_ifsc."'";
 
         $result = mysqli_query($con, $query);
       
 
         if($result){
             // successfully inserted into Payment database
-            $result = mysqli_fetch_array($result);
+            // $result = mysqli_fetch_array($result);
             $response["response_code"] = 200;
-            $response["id"] = $result[0];
+            $response["id"] = $user_id;
 
             echo json_encode($response);
         }else{

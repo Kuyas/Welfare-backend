@@ -10,7 +10,7 @@ $response = array();
 
 
 // check for the required fields
-if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_POST['trading_firm_address']) &&  isset($_POST['trading_mtp_branch'])
+if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_POST['trading_firm_address']) && isset($_POST['trading_firm_turnover']) &&  isset($_POST['trading_mtp_branch'])
      && isset($_POST['trading_mtp_godown']) && isset($_POST['trading_mtp_factory']) && isset($_POST['trading_mtp_others'])&& isset($_POST['trading_ownership_type'])
      && isset($_POST['trading_capital_contribution']) && isset($_POST['trading_gstn_date'])&& isset($_POST['trading_license_num'])
      && isset($_POST['trading_license_authority']) && isset($_POST['trading_official_name'])) {
@@ -18,16 +18,17 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
 
     if (!preg_match("~^[0-9]$~", $_POST['user_id']) ||
         !preg_match("~^[a-zA-z0-9\ \-]{1,100}$~", $_POST['trading_firm_name']) ||
-        !preg_match("~^[a-zA-z0-9\-\ \/\\]{1,200}$~", $_POST['trading_firm_address']) ||
-        !preg_match("~^[a-zA-z0-9\-\ \/\\]{1,100}$~", $_POST['trading_mtp_branch']) ||
-        !preg_match("~^[a-zA-z0-9\-\ \/\\]{1,100}$~", $_POST['trading_mtp_godown']) ||
-        !preg_match("~^[a-zA-z0-9\-\ \/\\]{1,100}$~", $_POST['trading_mtp_factory']) ||
-        !preg_match("~^[a-zA-z0-9\-\ \/\\]{1,100}$~", $_POST['trading_mtp_others']) ||
+        !preg_match("~^[a-zA-z0-9\-\ \/]{1,200}$~", $_POST['trading_firm_address']) ||
+        !preg_match("~^[0-9]{1,20}(?:\.\d\d)?$~", $_POST['trading_firm_turnover']) ||
+        !preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_branch']) ||
+        !preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_godown']) ||
+        !preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_factory']) ||
+        !preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_others']) ||
         !preg_match("~^[a-zA-z]{1,100}$~", $_POST['trading_ownership_type']) ||
-        !preg_match("~^[0-9]{1,20}\.[0-9]{2}$~", $_POST['trading_capital_contribution']) ||
-        !preg_match("~^[a-zA-z0-9\-\ \/\\]{1,50}$~", $_POST['trading_gstn_date']) ||
+        !preg_match("~^[0-9]{1,20}(?:\.\d\d)?$~", $_POST['trading_capital_contribution']) ||
+        !preg_match("~^[a-zA-z0-9\-\ \/]{1,50}$~", $_POST['trading_gstn_date']) ||
         !preg_match("~^[a-zA-z0-9\-\ ]{1,50}$~", $_POST['trading_license_num']) ||
-        !preg_match("~^[a-zA-z0-9\-\ \/\\]{1,50}$~", $_POST['trading_license_authority']) ||
+        !preg_match("~^[a-zA-z0-9\-\ \/]{1,50}$~", $_POST['trading_license_authority']) ||
         !preg_match("~^[a-zA-z\ ]{1,100}$~", $_POST['trading_official_name'])) {
 
         // input does not match the corresponding given data types
@@ -40,6 +41,7 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         $user_id = $_POST['user_id'];
         $firm_name = $_POST['trading_firm_name'];
         $firm_address = $_POST['trading_firm_address'];
+        $turnover = $_POST['trading_firm_turnover'];
         $mtp_branch = $_POST['trading_mtp_branch'];
         $mtp_godown = $_POST['trading_mtp_godown'];
         $mtp_factory = $_POST['trading_mtp_factory'];
@@ -85,8 +87,8 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         // $license_auth = mysqli_real_escape_string($con, $license_auth);
         // $official_name = mysqli_real_escape_string($con, $official_name);
 
-        $query = "INSERT INTO TRADING (USER_ID, TRADING_FIRM_NAME, TRADING_FIRM_ADDRESS, TRADING_MTP_BRANCH, TRADING_MTP_GODOWN, TRADING_MTP_FACTORY, TRADING_MTP_OTHERS, TRADING_OWNERSHIP_TYPE, TRADING_CAPITAL_CONTRIBUTION, TRADING_GSTN_DATE, TRADING_LICENSE_NUM, TRADING_LICENSE_AUTHORITY, TRADING_OFFICIAL_NAME) 
-        VALUES ('$user_id', '$firm_name', '$firm_address', '$mtp_branch', '$mtp_godown', '$mtp_factory', '$mtp_others', '$ownership_type', '$capital_contribution', '$gstn_date', '$license_num', '$license_auth', '$official_name')";    
+        $query = "INSERT INTO TRADING (USER_ID, TRADING_FIRM_NAME, TRADING_FIRM_ADDRESS, TRADING_ANNUAL_TURNOVER, TRADING_MTP_BRANCH, TRADING_MTP_GODOWN, TRADING_MTP_FACTORY, TRADING_MTP_OTHERS, TRADING_OWNERSHIP_TYPE, TRADING_CAPITAL_CONTRIBUTION, TRADING_GSTN_DATE, TRADING_LICENSE_NUM, TRADING_LICENSE_AUTHORITY, TRADING_OFFICIAL_NAME) 
+        VALUES ('$user_id', '$firm_name', '$firm_address', '$turnover' , '$mtp_branch', '$mtp_godown', '$mtp_factory', '$mtp_others', '$ownership_type', '$capital_contribution', '$gstn_date', '$license_num', '$license_auth', '$official_name')";    
 
         $result = mysqli_query($con, $query);
 	
