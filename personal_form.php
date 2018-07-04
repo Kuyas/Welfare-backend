@@ -86,3 +86,13 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 
 
 ?>  
+
+<html>
+
+
+<?php
+
+
+?>
+
+</html>
