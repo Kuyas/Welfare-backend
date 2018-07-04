@@ -10,16 +10,16 @@ $response = array();
 
 
 // check for the required fields
-if (isset($_POST['user_id']) && isset($_POST['emv_main_branch']) || isset($_POST['ara_main_branch'])) {
+if (isset($_POST['user_id'])) {
 
 
-    if (!preg_match("~^[0-9]$~", $_POST['user_id']) || 
-        !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['emv_main_branch']) ||
-        // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['emv_branch']) ||
-        // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['emv_godown']) ||
-        // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['emv_factory']) ||
-        // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['emv_others']) ||
-        !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['ara_main_branch'])
+    if (!preg_match("~^[0-9]$~", $_POST['user_id'])
+        // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['emv_main_branch']) ||
+        // // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['emv_branch']) ||
+        // // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['emv_godown']) ||
+        // // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['emv_factory']) ||
+        // // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['emv_others']) ||
+        // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['ara_main_branch'])
         // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['ara_branch']) ||
         // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['ara_godown']) ||
         // !preg_match("~^[0-9\ ]{1,20}(?:\.\d\d)?$~", $_POST['ara_factory']) ||

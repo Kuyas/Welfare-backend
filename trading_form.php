@@ -11,7 +11,7 @@ $response = array();
 
 // check for the required fields
 if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_POST['trading_firm_address']) && isset($_POST['trading_firm_turnover']) &&  isset($_POST['trading_mtp_branch'])
-     && isset($_POST['trading_mtp_godown']) && isset($_POST['trading_mtp_factory']) && isset($_POST['trading_mtp_others'])&& isset($_POST['trading_ownership_type'])
+     && isset($_POST['trading_mtp_godown']) && isset($_POST['trading_mtp_factory']) && isset($_POST['trading_ownership_type'])
      && isset($_POST['trading_capital_contribution']) && isset($_POST['trading_gstn_date'])&& isset($_POST['trading_license_num'])
      && isset($_POST['trading_license_authority']) && isset($_POST['trading_official_name'])) {
 
@@ -23,7 +23,7 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         !preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_branch']) ||
         !preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_godown']) ||
         !preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_factory']) ||
-        !preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_others']) ||
+        // !preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_others']) ||
         !preg_match("~^[a-zA-z]{1,100}$~", $_POST['trading_ownership_type']) ||
         !preg_match("~^[0-9]{1,20}(?:\.\d\d)?$~", $_POST['trading_capital_contribution']) ||
         !preg_match("~^[a-zA-z0-9\-\ \/]{1,50}$~", $_POST['trading_gstn_date']) ||
@@ -36,6 +36,19 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
 
         echo json_encode($response); 
     } else {
+
+        if(isset($_POST["trading_mtp_others"])){
+            if(!preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_others'])){
+
+                 // input does not match the corresponding given data types
+                  $response["response_code"] = 401;
+
+                 echo json_encode($response); 
+
+            }
+
+        }
+
 
 
         $user_id = $_POST['user_id'];
