@@ -38,7 +38,7 @@ if(!isset($_POST["user_id"])) {
              $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
              $response["response_code"] = 200;
-            $response["turnover"] = $row['TRADING_ANNUAL_TURNOVER'];
+            $response["turnover"] = $row['TRADING_FIRM_ANNUAL_TURNOVER'];
            
             // $response = array_values($response);
             
