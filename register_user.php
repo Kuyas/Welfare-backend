@@ -36,15 +36,14 @@ require_once __DIR__ . '/db_config.php';
         // $mobile_number = mysqli_real_escape_string($con, $mobile_number);
         // $password = mysqli_real_escape_string($con, $password);
 
-        $query = "INSERT INTO user(user_mobile, user_password, user_date_created, user_date_modified) VALUES ('$mobile_number','$password', NOW(), NOW())";
+        $query = "INSERT INTO USER(user_mobile, user_password, user_date_created, user_date_modified) VALUES ('$mobile_number','$password', NOW(), NOW())";
         $result = mysqli_query($con, $query);
 
         //check if row is inserted or not
         if($result){
             //successfully registered
-            $result = mysqli_fetch_array($result);
             $response["response_code"] = 200;
-            $response["id"] = $result[0];
+            $response["id"] = mysqli_insert_id($con);
 
             //echoing json response
             echo json_encode($response);
