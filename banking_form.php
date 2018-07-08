@@ -1,9 +1,5 @@
 <?php
-
-
 require_once __DIR__ . '/db_config.php';
-
-
 
 /**
  * This php file
@@ -36,26 +32,9 @@ require_once __DIR__ . '/db_config.php';
         $branch_name = $_POST['branch_name'];
         $bank_ifsc = $_POST['bank_ifsc'];
 
-
-        // $user_id = stripslashes($user_id);
-        // $bank_name = stripslashes($bank_name);
-        // $bank_account_num = stripslashes($bank_account_num);
-        // $account_holder_name = stripslashes($account_holder_name);
-        // $branch_name = stripslashes($branch_name);
-        // $bank_ifsc = stripslashes($bank_ifsc);
-
-
        //connecting to db
         $database = DB_DATABASE;
         $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
-
-        // $user_id = mysqli_real_escape_string($con, $user_id);
-        // $bank_name = mysqli_real_escape_string($con, $bank_name);
-        // $bank_account_num = mysqli_real_escape_string($con, $bank_account_num);
-        // $account_holder_name = mysqli_real_escape_string($con, $account_holder_name);
-        // $branch_name = mysqli_real_escape_string($con, $branch_name);
-        // $bank_ifsc = mysqli_real_escape_string($con, $bank_ifsc);
-
 
         $query = "INSERT INTO BANKING (USER_ID, BANKING_BANK_NAME, BANKING_ACC_NUMBER, BANKING_ACC_HOLDER_NAME, 
         BANKING_BANK_BRANCH, BANKING_IFSC_CODE) VALUES('".$user_id."', '".$bank_name."', '".$bank_account_num."',
@@ -67,8 +46,6 @@ require_once __DIR__ . '/db_config.php';
       
 
         if($result){
-            // successfully inserted into Payment database
-            // $result = mysqli_fetch_array($result);
             $response["response_code"] = 200;
             $response["id"] = $user_id;
 

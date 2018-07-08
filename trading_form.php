@@ -8,7 +8,6 @@ require_once __DIR__. '/db_config.php';
 // array for json response
 $response = array();
 
-
 // check for the required fields
 if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_POST['trading_firm_address']) && isset($_POST['trading_firm_turnover']) &&  isset($_POST['trading_mtp_branch'])
      && isset($_POST['trading_mtp_godown']) && isset($_POST['trading_mtp_factory']) && isset($_POST['trading_ownership_type'])
@@ -66,42 +65,25 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         $license_auth = $_POST['trading_license_authority'];
         $official_name = $_POST['trading_official_name'];
 
-
-        // $user_id = stripslashes($user_id);
-        // $firm_name = stripslashes($firm_name);
-        // $firm_address = stripslashes($firm_address);
-        // $mtp_branch = stripslashes($mtp_branch);
-        // $mtp_godown = stripslashes($mtp_godown);
-        // $mtp_factory = stripslashes($mtp_factory);
-        // $mtp_others = stripslashes($mtp_others);
-        // $ownership_type = stripslashes($ownership_type);
-        // $capital_contribution = stripslashes($capital_contribution);
-        // $gstn_date = stripslashes($gstn_date);
-        // $license_num = stripslashes($license_num);
-        // $license_auth = stripslashes($license_auth);
-        // $official_name = stripslashes($official_name);
-
-
         // connecting to database
         $database = DB_DATABASE;
         $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 
-        // $user_id = mysqli_real_escape_string($con, $user_id);
-        // $firm_name = mysqli_real_escape_string($con, $firm_name);
-        // $firm_address = mysqli_real_escape_string($con, $firm_address);
-        // $mtp_branch = mysqli_real_escape_string($con, $mtp_branch);
-        // $mtp_godown = mysqli_real_escape_string($con, $mtp_godown);
-        // $mtp_factory = mysqli_real_escape_string($con, $mtp_factory);
-        // $mtp_others = mysqli_real_escape_string($con, $mtp_others);
-        // $ownership_type = mysqli_real_escape_string($con, $ownership_type);
-        // $capital_contribution = mysqli_real_escape_string($con, $capital_contribution);
-        // $gstn_date = mysqli_real_escape_string($con, $gstn_date);
-        // $license_num = mysqli_real_escape_string($con, $license_num);
-        // $license_auth = mysqli_real_escape_string($con, $license_auth);
-        // $official_name = mysqli_real_escape_string($con, $official_name);
-
         $query = "INSERT INTO TRADING (USER_ID, TRADING_FIRM_NAME, TRADING_FIRM_ADDRESS, TRADING_ANNUAL_TURNOVER, TRADING_MTP_BRANCH, TRADING_MTP_GODOWN, TRADING_MTP_FACTORY, TRADING_MTP_OTHERS, TRADING_OWNERSHIP_TYPE, TRADING_CAPITAL_CONTRIBUTION, TRADING_GSTN_DATE, TRADING_LICENSE_NUM, TRADING_LICENSE_AUTHORITY, TRADING_OFFICIAL_NAME) 
-        VALUES ('$user_id', '$firm_name', '$firm_address', '$turnover' , '$mtp_branch', '$mtp_godown', '$mtp_factory', '$mtp_others', '$ownership_type', '$capital_contribution', '$gstn_date', '$license_num', '$license_auth', '$official_name')";    
+        VALUES ('$user_id', '$firm_name', '$firm_address', '$turnover' , '$mtp_branch', '$mtp_godown', '$mtp_factory', '$mtp_others', '$ownership_type', '$capital_contribution', '$gstn_date', '$license_num', '$license_auth', '$official_name') ON DUPLICATE KEY UPDATE 
+        TRADING_FIRM_NAME='".$firm_name."', 
+        TRADING_FIRM_ADDRESS='".$firm_address."', 
+        TRADING_ANNUAL_TURNOVER='".$trading_firm_turnover."', 
+        TRADING_MTP_BRANCH='".$mtp_branch."', 
+        TRADING_MTP_GODOWN='".$mtp_godown."', 
+        TRADING_MTP_FACTORY='".$mtp_factory."', 
+        TRADING_MTP_OTHERS='".$mtp_others."', 
+        TRADING_OWNERSHIP_TYPE='".$ownership_type."',
+        TRADING_CAPITAL_CONTRIBUTION='".$capital_contribution."',
+        TRADING_GSTN_DATE='".$gstn_date."',
+        TRADING_LICENSE_NUM='".$license_num."',
+        TRADING_LICENSE_AUTHORITY='".$license_auth."',
+        TRADING_OFFICIAL_NAME='".$official_name."'";
 
         $result = mysqli_query($con, $query);
 	

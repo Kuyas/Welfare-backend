@@ -37,36 +37,21 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 		$personal_place = $_POST['personal_place'];
 		$personal_district = $_POST['personal_district'];
 
-		// $user_id = stripslashes($user_id);
-		// $personal_name = stripslashes($personal_name);
-		// $personal_dob = stripslashes($personal_dob);
-		// $personal_gender = stripslashes($personal_gender);
-		// $personal_address = stripslashes($personal_address);
-		// $personal_place = stripslashes($personal_place);
-		// $personal_district = stripslashes($personal_district);
-
-
-
 		// connecting to database
 		$database = DB_DATABASE;
 		$con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 
-		// $user_id = mysqli_real_escape_string($con, $user_id);
-		// $personal_name = mysqli_real_escape_string($con, $personal_name);
-		// $personal_dob = mysqli_real_escape_string($con, $personal_dob);
-		// $personal_gender = mysqli_real_escape_string($con, $personal_gender);
-		// $personal_address = mysqli_real_escape_string($con, $personal_address);
-		// $personal_place = mysqli_real_escape_string($con, $personal_place);
-		// $personal_district = mysqli_real_escape_string($con, $personal_district);
-
 		$personal_dob = strtotime($personal_dob);
 		$personal_dob = date('Y-m-d',$personal_dob);
 		
-		$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT) VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')";
+		$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT) VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')
+		ON DUPLICATE KEY UPDATE
+		PERSONAL_ADDRESS='".$personal_address."'
+		PERSONAL_PLACE='".$personal_place."'
+		PERSONAL_DISTRICT='".$personal_district."'";
 		$result = mysqli_query($con, $query);
 
 		// check if row inserted or not
-
 		if ($result) {
 			// TODO: Document previous error regarding $result in msqli_fetch_array($result) which does not take boolean
 			// successfully inserted into Personal database

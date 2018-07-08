@@ -29,7 +29,6 @@ if (isset($_POST['user_id'])) {
 
         // input does not match the corresponding given data types
         $response["response_code"] = 401;
-
         echo json_encode($response); 
     } else {
 
@@ -46,12 +45,6 @@ if (isset($_POST['user_id'])) {
         $ara_factory = $_POST['ara_factory'];
         $ara_other = $_POST['ara_other'];
         $organization_name = $_POST['organisation_name'];
-       
-
-    
-        // echo $user_id;
-        // echo $ara_branch;
-
 
         // connecting to database
         $database = DB_DATABASE;
@@ -60,8 +53,19 @@ if (isset($_POST['user_id'])) {
         $query = "INSERT INTO OTHER (USER_ID, OTHER_EMV_MAIN_BRANCH, OTHER_EMV_BRANCH, OTHER_EMV_GODOWN, OTHER_EMV_FACTORY,
         OTHER_EMV_OTHERS, ARA_MAIN_BRANCH, ARA_BRANCH, ARA_GODOWN, ARA_FACTORY, ARA_OTHER, OTHER_ORGANISATION_NAME)
         VALUES ('$user_id', '$emv_main_branch', '$emv_branch', '$emv_godown', '$emv_factory', '$emv_others', '$ara_main_branch',
-        '$ara_branch', '$ara_godown', '$ara_factory', '$ara_other', '$organization_name')";
-
+        '$ara_branch', '$ara_godown', '$ara_factory', '$ara_other', '$organization_name')
+        ON DUPLICATE KEY UPDATE
+        OTHER_EMV_MAIN_BRANCH='".$emv_main_branch."'
+        OTHER_EMV_BRANCH='".$emv_branch."'
+        OTHER_EMV_GODOWN='".$emv_godown."'
+        OTHER_EMV_FACTORY='".$emv_factory."'
+        OTHER_EMV_OTHERS='".$emv_others."'
+        ARA_MAIN_BRANCH='".$ara_main_branch."'
+        ARA_BRANCH='".$ara_branch."'
+        ARA_GODOWN='".$ara_godown."'
+        ARA_FACTORY='".$ara_factory."'
+        ARA_OTHER='".$ara_other."'
+        OTHER_ORGANISATION_NAME='".$organization_name."'";
 
         $result = mysqli_query($con, $query);
        
@@ -76,14 +80,9 @@ if (isset($_POST['user_id'])) {
             echo json_encode($response);
         }	
     }
-
 } else {
     // required fields are missing
     $response["response_code"] = 400;
     echo json_encode($response);
 }
-
-
-
-
 ?>
