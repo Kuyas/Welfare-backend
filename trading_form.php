@@ -38,17 +38,15 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
 
         if(isset($_POST["trading_mtp_others"])){
             if(!preg_match("~^[a-zA-z0-9\-\ \/]{1,100}$~", $_POST['trading_mtp_others'])){
-
                  // input does not match the corresponding given data types
                   $response["response_code"] = 401;
-
                  echo json_encode($response); 
 
             }
-
+            $mtp_others = $_POST['trading_mtp_others'];
+        } else {
+            $mtp_others = null;
         }
-
-
 
         $user_id = $_POST['user_id'];
         $firm_name = $_POST['trading_firm_name'];
@@ -57,7 +55,6 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         $mtp_branch = $_POST['trading_mtp_branch'];
         $mtp_godown = $_POST['trading_mtp_godown'];
         $mtp_factory = $_POST['trading_mtp_factory'];
-        $mtp_others = $_POST['trading_mtp_others'];
         $ownership_type = $_POST['trading_ownership_type'];
         $capital_contribution = $_POST['trading_capital_contribution'];
         $gstn_date = $_POST['trading_gstn_date'];
@@ -69,11 +66,11 @@ if (isset($_POST['user_id']) && isset($_POST['trading_firm_name']) && isset($_PO
         $database = DB_DATABASE;
         $con = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE) or die(mysql_error());
 
-        $query = "INSERT INTO TRADING (USER_ID, TRADING_FIRM_NAME, TRADING_FIRM_ADDRESS, TRADING_ANNUAL_TURNOVER, TRADING_MTP_BRANCH, TRADING_MTP_GODOWN, TRADING_MTP_FACTORY, TRADING_MTP_OTHERS, TRADING_OWNERSHIP_TYPE, TRADING_CAPITAL_CONTRIBUTION, TRADING_GSTN_DATE, TRADING_LICENSE_NUM, TRADING_LICENSE_AUTHORITY, TRADING_OFFICIAL_NAME) 
+        $query = "INSERT INTO TRADING (USER_ID, TRADING_FIRM_NAME, TRADING_FIRM_ADDRESS, TRADING_FIRM_ANNUAL_TURNOVER, TRADING_MTP_BRANCH, TRADING_MTP_GODOWN, TRADING_MTP_FACTORY, TRADING_MTP_OTHERS, TRADING_OWNERSHIP_TYPE, TRADING_CAPITAL_CONTRIBUTION, TRADING_GSTN_DATE, TRADING_LICENSE_NUM, TRADING_LICENSE_AUTHORITY, TRADING_OFFICIAL_NAME) 
         VALUES ('$user_id', '$firm_name', '$firm_address', '$turnover' , '$mtp_branch', '$mtp_godown', '$mtp_factory', '$mtp_others', '$ownership_type', '$capital_contribution', '$gstn_date', '$license_num', '$license_auth', '$official_name') ON DUPLICATE KEY UPDATE 
         TRADING_FIRM_NAME='".$firm_name."', 
         TRADING_FIRM_ADDRESS='".$firm_address."', 
-        TRADING_ANNUAL_TURNOVER='".$trading_firm_turnover."', 
+        TRADING_FIRM_ANNUAL_TURNOVER='".$turnover."', 
         TRADING_MTP_BRANCH='".$mtp_branch."', 
         TRADING_MTP_GODOWN='".$mtp_godown."', 
         TRADING_MTP_FACTORY='".$mtp_factory."', 

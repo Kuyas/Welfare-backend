@@ -46,8 +46,8 @@ if (isset($_POST['user_id']) && isset($_POST['personal_name']) && isset($_POST['
 		
 		$query = "INSERT INTO PERSONAL (USER_ID, PERSONAL_NAME, PERSONAL_DOB, PERSONAL_GENDER, PERSONAL_ADDRESS, PERSONAL_PLACE, PERSONAL_DISTRICT) VALUES ('$user_id', '$personal_name', '$personal_dob', '$personal_gender', '$personal_address', '$personal_place', '$personal_district')
 		ON DUPLICATE KEY UPDATE
-		PERSONAL_ADDRESS='".$personal_address."'
-		PERSONAL_PLACE='".$personal_place."'
+		PERSONAL_ADDRESS='".$personal_address."',
+		PERSONAL_PLACE='".$personal_place."',
 		PERSONAL_DISTRICT='".$personal_district."'";
 		$result = mysqli_query($con, $query);
 

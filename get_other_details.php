@@ -38,7 +38,7 @@ require_once __DIR__ . '/db_config.php';
             $response["response_code"] = 200;
             $result = mysqli_fetch_array($result, MYSQLI_NUM);
             $response["emv_main_branch"] = $result[1];
-            $response["emv_brach"] = $result[2];
+            $response["emv_branch"] = $result[2];
             $response["emv_godown"] = $result[3];
             $response["emv_factory"] = $result[4];
             $response["emv_others"] = $result[5];

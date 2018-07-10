@@ -38,7 +38,7 @@ require_once __DIR__ . '/db_config.php';
             $response["response_code"] = 200;
             $result = mysqli_fetch_array($result, MYSQLI_NUM);
             $response["name"] = $result[1];
-            $response["dob"] = $result[2];
+            $response["dob"] = date("d-m-Y", strtotime($result[2]));
             $response["gender"] = $result[3];
             $response["address"] = $result[4];
             $response["place"] = $result[5];
