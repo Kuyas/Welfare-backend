@@ -25,9 +25,9 @@ SQL scripts to generate database
 # Features left to implement
 There are many features left to implement before it is completely functional and deployable, however bulk of the work is done.
 1. Implement user sessions to prevent sending of cache
-2. Implement boolean to maintain of form data is changed
-3. Make sign up secure by implementing some form of otp feature
+2. Implement boolean to maintain form data if changed
+3. Make sign up secure by implementing some form of otp verification
 4. Make regex checks more robust
 
 # Contribute or use the code
-The code works in conjunction with the android app deigned for it and can be directly cloned and run. Feel free to contribute to this project or use it for your own purpose. **For any suggestions or bugs make drop an issue** and we'll get back to you. To contribute make a fork and generate a pull request with your changes (and might need the android app which is in this [repo](https://github.com/Kuyas/Welfare))
+The code works in conjunction with the android app deigned for it and can be directly cloned and run. Feel free to contribute to this project or use it for your own purpose. **For any suggestions or bugs please drop an issue** and we'll get back to you. To contribute, make a fork and generate a pull request with your changes (and might need the android app which is in this [repo](https://github.com/Kuyas/Welfare))
