@@ -1,7 +1,7 @@
 ![welfare app logo](https://github.com/Kuyas/Welfare/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png?raw=true) 
 # Welfare App Backend
 This is the backend code for the android application made by students of [BITS Pilani](http://www.bits-pilani.ac.in/) as their Internship (Practise School) project under Centre of Development for Imaging Technology ([CDIT](http://cdit.org)) 
-The application has been made for [Kerala Traders Welfare Board](https://kerala.gov.in/welfare-fund-boards) to allow remote registration of traders. It also allows the traders to pay annual fee, check application status and make changes to details. The code is available in this [repo](https://github.com/Kuyas/Welfare)
+The application has been made for [Kerala Traders Welfare Board](https://kerala.gov.in/welfare-fund-boards) to allow remote registration of traders. It also allows the traders to pay their annual fees, check application status and make changes to details. The code is available in this [repo](https://github.com/Kuyas/Welfare)
 The developers are:  
 Ishan Bhanuka ([twitu](https://github.com/twitu))  
 Omkar Kanade ([omkar-decode](https://github.com/omkar-decode))  
@@ -24,7 +24,7 @@ SQL scripts to generate database
 
 # Features left to implement
 There are many features left to implement before it is completely functional and deployable, however bulk of the work is done.
-1. Implement user sessions to prevent sending cache
+1. Implement user sessions to prevent sending of cache
 2. Implement boolean to maintain of form data is changed
 3. Make sign up secure by implementing some form of otp feature
 4. Make regex checks more robust
